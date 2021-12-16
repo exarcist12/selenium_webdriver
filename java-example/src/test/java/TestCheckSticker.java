@@ -28,7 +28,7 @@ public class TestCheckSticker {
 
 
     @Test
-    public void myFirstTest() {
+    public void testCheckSticker() {
         driver.get("http://localhost/litecart/en/");
         List<WebElement> links = driver.findElements(By.className("product"));
         for (WebElement link : links) {
