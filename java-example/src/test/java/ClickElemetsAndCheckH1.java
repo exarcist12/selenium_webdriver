@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -32,42 +34,11 @@ public class ClickElemetsAndCheckH1 {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
-        Assertions.assertTrue(isElementPresent(By.id("box-widgets-wrapper")));
-        driver.findElement(By.className("fa-adjust")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-th")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-flag")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-money")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-user")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-globe")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-comments")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-cube")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-shopping-cart")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-file-text")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-pie-chart")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-cogs")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-picture-o")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-university")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-book")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-star")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-        driver.findElement(By.className("fa-plug")).click();
-        Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
-    }
+        for (int i=1; i<18; i++) {
+            driver.findElement(By.xpath("(//li[@id='app-'])["+i+"]")).click();
+            Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
+        }
+   }
 
     @After
     public void stop() {
