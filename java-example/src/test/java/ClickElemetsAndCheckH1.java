@@ -34,9 +34,17 @@ public class ClickElemetsAndCheckH1 {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
-        for (int i=1; i<18; i++) {
+        List<WebElement> mainElements = driver.findElements(By.xpath("(//li[@id='app-'])"));
+        for (int i=1; i<=mainElements.size(); i++) {
             driver.findElement(By.xpath("(//li[@id='app-'])["+i+"]")).click();
             Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
+            List<WebElement> inElements = driver.findElements(By.xpath("(//ul[@class='docs']//span[@class='name'])"));
+            if (inElements.size()>0) {
+                for (int j=1; j<= inElements.size(); j++){
+                    driver.findElement(By.xpath("(//ul[@class='docs']//span[@class='name'])["+j+"]")).click();
+                    Assertions.assertTrue(isElementPresent(By.cssSelector("h1")));
+                }
+            }
         }
    }
 
@@ -53,6 +61,10 @@ public class ClickElemetsAndCheckH1 {
         } catch (NoSuchElementException ex) {
             return false;
         }
+    }
+
+    public boolean areElementsPresent(By locator) {
+        return driver.findElements(locator).size()>0;
     }
 
 }
