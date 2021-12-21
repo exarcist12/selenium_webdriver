@@ -63,7 +63,7 @@ public class CheckAlphabetSort {
                 WebElement countryclick = driver.findElement(By.xpath("//tr[@class='row']["+ (i+1) +"]//td[5]//a"));
                 String texts  = countryclick.getAttribute("textContent");
                 countryclick.click();
-                List<WebElement> zoneElements = driver.findElements(By.xpath("//form//tbody//tr//td[3]//input[@type='hidden']"));
+                List<WebElement> zoneElements = driver.findElements(By.cssSelector("input[name*='][name]']"));
                 List<String> zonesAfter = new ArrayList<>();
                 List<String> zonesBefore = new ArrayList<>();
                 for (WebElement zoneElement : zoneElements) {
