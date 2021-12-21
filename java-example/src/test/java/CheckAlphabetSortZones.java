@@ -41,11 +41,12 @@ public class CheckAlphabetSortZones {
             driver.findElement(By.xpath("(//a[@title='Edit'])["+ i +"]")).click();
             List<WebElement> nameZones = driver.findElements(By.cssSelector("[name*=zone_code] option[selected=selected]"));
             List<String> zonesAfter = new ArrayList<>();
+            List<String> zonesBefore = new ArrayList<>();
             for (WebElement zone : nameZones) {
                 String zoneNow = zone.getAttribute("textContent");
                 zonesAfter.add(zoneNow);
+                zonesBefore.add(zoneNow);
             }
-            List<String> zonesBefore = zonesAfter;
             Collections.sort(zonesAfter);
 
             Assert.assertTrue(zonesAfter.equals(zonesBefore));

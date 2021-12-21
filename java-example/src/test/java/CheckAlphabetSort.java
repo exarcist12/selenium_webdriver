@@ -39,11 +39,12 @@ public class CheckAlphabetSort {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
         List<WebElement> mainElements = driver.findElements(By.cssSelector("tr.row td:not([style='text-align: right;']) a"));
         List<String> countries = new ArrayList<>();
+        List<String> countriesBefore = new ArrayList<>();
         for (WebElement element : mainElements) {
             String country = element.getAttribute("text");
             countries.add(country);
+            countriesBefore.add(country);
         }
-        List<String> countriesBefore = countries;
         Collections.sort(countries);
 
         Assert.assertTrue(countries.equals(countriesBefore));
@@ -64,11 +65,12 @@ public class CheckAlphabetSort {
                 countryclick.click();
                 List<WebElement> zoneElements = driver.findElements(By.xpath("//form//tbody//tr//td[3]//input[@type='hidden']"));
                 List<String> zonesAfter = new ArrayList<>();
+                List<String> zonesBefore = new ArrayList<>();
                 for (WebElement zoneElement : zoneElements) {
                     String  zona = zoneElement.getAttribute("defaultValue");
                     zonesAfter.add(zona);
+                    zonesBefore.add(zona);
                 }
-                List<String> zonesBefore = zonesAfter;
                 Collections.sort(zonesAfter);
                 Assert.assertTrue(zonesAfter.equals(zonesBefore));
                 driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
