@@ -63,11 +63,11 @@ public class CheckAlphabetSort {
                 WebElement countryclick = driver.findElement(By.xpath("//tr[@class='row']["+ (i+1) +"]//td[5]//a"));
                 String texts  = countryclick.getAttribute("textContent");
                 countryclick.click();
-                List<WebElement> zoneElements = driver.findElements(By.cssSelector("input[name*='][name]']"));
+                List<WebElement> zoneElements = driver.findElements(By.xpath("//*[@id='remove-zone']/../../td[3]"));
                 List<String> zonesAfter = new ArrayList<>();
                 List<String> zonesBefore = new ArrayList<>();
                 for (WebElement zoneElement : zoneElements) {
-                    String  zona = zoneElement.getAttribute("defaultValue");
+                    String  zona = zoneElement.getAttribute("textContent");
                     zonesAfter.add(zona);
                     zonesBefore.add(zona);
                 }
