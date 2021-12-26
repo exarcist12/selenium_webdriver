@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,9 +23,10 @@ public class TaskTen {
 
     @Before
     public void start(){
-        driver = new ChromeDriver();
+//       driver = new ChromeDriver();
+       driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 10);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
 
@@ -45,7 +47,10 @@ public class TaskTen {
         String mainRegularPriceColor = mainRegularPrice.getCssValue("color");
         String mainRegularPriceTextDecoration = mainRegularPrice.getCssValue("text-decoration-line");
         Assertions.assertTrue(mainRegularPriceTextDecoration.equals("line-through"));
-        String[] numbers = mainRegularPriceColor.replace("rgba(", "").replace(")", "").split(",");
+
+        String numbersColor = mainRegularPriceColor.replaceAll("[^0-9,()]", "");
+
+        String[] numbers = numbersColor.replace("(", "").replace(")", "").split(",");
         int r = Integer.parseInt(numbers[0].trim());
         int g = Integer.parseInt(numbers[1].trim());
         int b = Integer.parseInt(numbers[2].trim());
@@ -55,22 +60,24 @@ public class TaskTen {
 
         String mainCampaignPriceColor =mainCampaignPrice.getCssValue("color");
         String mainCampaignPriceFontWeight = mainCampaignPrice.getCssValue("font-weight");
-        Assertions.assertTrue(mainCampaignPriceFontWeight.equals("700"));
-        String[] numbers2 = mainCampaignPriceColor.replace("rgba(", "").replace(")", "").split(",");
+        int i = Integer.parseInt (mainCampaignPriceFontWeight.trim ());
+        Assertions.assertTrue(i>=700);
+        String numbersColor2 = mainCampaignPriceColor.replaceAll("[^0-9,()]", "");
+
+        String[] numbers2 = numbersColor2.replace("(", "").replace(")", "").split(",");
         int r2 = Integer.parseInt(numbers2[0].trim());
         int g2 = Integer.parseInt(numbers2[1].trim());
         int b2 = Integer.parseInt(numbers2[2].trim());
         Assertions.assertEquals (b2,0);
         Assertions.assertEquals (g2,0);
 
-        Dimension sizeRegular = mainRegularPrice.getSize();
-        Dimension sizeCampaign = mainCampaignPrice.getSize();
-        int sizeRegularHeight = sizeRegular.getHeight();
-        int sizeRegularWidth = sizeRegular.getWidth();
-        int sizeCampaignHeight = sizeCampaign.getHeight();
-        int sizeCampaignWidth = sizeCampaign.getWidth();
-        Assertions.assertTrue(sizeCampaignHeight>sizeRegularHeight);
-        Assertions.assertTrue(sizeCampaignWidth>sizeRegularWidth);
+        String sizeRegular = mainRegularPrice.getCssValue("font-size");
+        String text = sizeRegular.replaceAll("[^0-9.]", "");
+        double sizeR = Double.parseDouble(text);
+        String sizeCampaign = mainCampaignPrice.getCssValue("font-size");
+        String text2 = sizeCampaign.replaceAll("[^0-9.]", "");
+        double sizeC = Double.parseDouble(text2);
+        Assertions.assertTrue(sizeR<sizeC);
 
         main.click();
 
@@ -88,7 +95,8 @@ public class TaskTen {
         String productRegularPriceColor = productRegularPrice.getCssValue("color");
         String productRegularPriceTextDecoration = productRegularPrice.getCssValue("text-decoration-line");
         Assertions.assertTrue(productRegularPriceTextDecoration.equals("line-through"));
-        String[] numbersProduct = productRegularPriceColor.replace("rgba(", "").replace(")", "").split(",");
+        String numbersProductColor = productRegularPriceColor.replaceAll("[^0-9,()]", "");
+        String[] numbersProduct = numbersProductColor.replace("(", "").replace(")", "").split(",");
         int rProduct = Integer.parseInt(numbersProduct[0].trim());
         int gProduct = Integer.parseInt(numbersProduct[1].trim());
         int bProduct = Integer.parseInt(numbersProduct[2].trim());
@@ -97,22 +105,23 @@ public class TaskTen {
 
         String productCampaignPriceColor =productCampaignPrice.getCssValue("color");
         String productCampaignPriceFontWeight = productCampaignPrice.getCssValue("font-weight");
-        Assertions.assertTrue(productCampaignPriceFontWeight.equals("700"));
-        String[] numbersProduct2 = productCampaignPriceColor.replace("rgba(", "").replace(")", "").split(",");
+        int i2 = Integer.parseInt (productCampaignPriceFontWeight.trim ());
+        Assertions.assertTrue(i2>=700);
+        String numbersProductColor2 = productCampaignPriceColor.replaceAll("[^0-9,()]", "");
+        String[] numbersProduct2 = numbersProductColor2.replace("(", "").replace(")", "").split(",");
         int rProduct2 = Integer.parseInt(numbersProduct2[0].trim());
         int gProduct2 = Integer.parseInt(numbersProduct2[1].trim());
         int bProduct2 = Integer.parseInt(numbersProduct2[2].trim());
         Assertions.assertEquals (gProduct2,0);
         Assertions.assertEquals (bProduct2,0);
 
-        Dimension sizeRegular2 = productRegularPrice.getSize();
-        Dimension sizeCampaign2 = productCampaignPrice.getSize();
-        int sizeRegularHeight2 = sizeRegular2.getHeight();
-        int sizeRegularWidth2 = sizeRegular2.getWidth();
-        int sizeCampaignHeight2 = sizeCampaign2.getHeight();
-        int sizeCampaignWidth2 = sizeCampaign2.getWidth();
-        Assertions.assertTrue(sizeCampaignHeight2>sizeRegularHeight2);
-        Assertions.assertTrue(sizeCampaignWidth2>sizeRegularWidth2);
+        String sizeProductRegular = productRegularPrice.getCssValue("font-size");
+        String text3 = sizeProductRegular.replaceAll("[^0-9.]", "");
+        double sizeProductR = Double.parseDouble(text3);
+        String sizeProductCampaign = productCampaignPrice.getCssValue("font-size");
+        String text4 = sizeProductCampaign.replaceAll("[^0-9.]", "");
+        double sizeProductC = Double.parseDouble(text4);
+        Assertions.assertTrue(sizeProductR<sizeProductC);
 
 
     }
