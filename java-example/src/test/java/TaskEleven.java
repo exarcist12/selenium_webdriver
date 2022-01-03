@@ -25,7 +25,7 @@ public class TaskEleven {
 
     @Before
     public void start(){
-      driver = new ChromeDriver();
+     driver = new ChromeDriver();
 //        driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -48,9 +48,16 @@ public class TaskEleven {
         driver.findElement(By.cssSelector("input[name=address2")).sendKeys("address2");
         driver.findElement(By.cssSelector("input[name=postcode")).sendKeys("12345");
         driver.findElement(By.cssSelector("input[name=city")).sendKeys("city");
-        WebElement selectCountry = driver.findElement(By.cssSelector("select[name=country_code]"));
+
+/*        WebElement selectCountry = driver.findElement(By.cssSelector("select[name=country_code]"));
         Select selected = new Select(selectCountry);
         selected.selectByVisibleText("United States");
+ */       WebElement selectCountry = driver.findElement(By.cssSelector("span.select2-selection__rendered"));
+        selectCountry.click();
+        WebElement selectCountry2 = driver.findElement(By.cssSelector("input.select2-search__field"));
+        selectCountry2.sendKeys("United States" + Keys.ENTER);
+
+
         WebElement selectZone = driver.findElement(By.cssSelector("select[name=zone_code]"));
         Select selected2 = new Select(selectZone);
         selected2.selectByVisibleText("Arizona");
@@ -65,6 +72,7 @@ public class TaskEleven {
         driver.findElement(By.cssSelector("input[name=email]")).sendKeys(login);
         driver.findElement(By.cssSelector("input[name=password]")).sendKeys(password);
         driver.findElement(By.cssSelector("button[name=login]")).click();
+        Assertions.assertTrue(isElementPresent(By.cssSelector("a[href*=logout]")));
     }
 
     @After
