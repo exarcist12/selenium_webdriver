@@ -22,10 +22,10 @@ public class TaskThirteen {
 
     @Before
     public void start(){
- //    driver = new ChromeDriver();
-        driver = new FirefoxDriver();
+   driver = new ChromeDriver();
+//        driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 10);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
 
